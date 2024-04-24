@@ -10368,7 +10368,7 @@ __metadata:
     "@rocket.chat/ui-avatar": "workspace:^"
     "@rocket.chat/ui-contexts": "workspace:~"
     "@types/react": ~18.2.79
-    "@types/react-beautiful-dnd": ^13.1.6
+    "@types/react-beautiful-dnd": ~13.1.8
     "@types/react-dom": ~18.2.25
     "@types/use-subscription": ^1.0.1
     "@typescript-eslint/eslint-plugin": ~5.60.1
@@ -10382,7 +10382,7 @@ __metadata:
     moment: ^2.29.4
     rc-scrollbars: ^1.1.6
     react: ~18.2.0
-    react-beautiful-dnd: ^13.1.1
+    react-beautiful-dnd: ~13.1.1
     react-dom: ~18.2.0
     react-router-dom: ^6.11.2
     react-split-pane: ^0.1.92
@@ -14067,12 +14067,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-beautiful-dnd@npm:^13.1.6":
-  version: 13.1.6
-  resolution: "@types/react-beautiful-dnd@npm:13.1.6"
+"@types/react-beautiful-dnd@npm:~13.1.8":
+  version: 13.1.8
+  resolution: "@types/react-beautiful-dnd@npm:13.1.8"
   dependencies:
     "@types/react": "*"
-  checksum: 437c315cac4455fd0085150d5d163330e523e965193f642f45edf34eb56098e68a6f956d90ecb11abfcb03ce34177e5445c1489da46353ee5a6a6306414fb936
+  checksum: f71c64ba7e2e1f8480e772b45268856d2bf99adf90d12dd5f31486075dfd3e33a0b0922969851c660f01aa9593aa38b38e17ee9038eb866af9ec4327be903cb9
   languageName: node
   linkType: hard
 
@@ -14124,18 +14124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^17":
-  version: 17.0.69
-  resolution: "@types/react@npm:17.0.69"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: b83d4ec968b712b2b1a444c614b1ef3e59879c6911bc4001158de5de49b80b6a20fc4859353244f0171b94845d4c85a6379071445242ff23bbbc9b0ff24577d7
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:~18.2.79":
+"@types/react@npm:18.2.79":
   version: 18.2.79
   resolution: "@types/react@npm:18.2.79"
   dependencies:
@@ -14183,13 +14172,6 @@ __metadata:
   dependencies:
     htmlparser2: ^8.0.0
   checksum: 882a39ec767e0c5fd4402108db4b8e4f85ff555cf490ad8c7340d9c58c57c3ffefa33c0d248d5e67047df6f744ca60e125da5485efc18ac450783f3900178373
-  languageName: node
-  linkType: hard
-
-"@types/scheduler@npm:*":
-  version: 0.16.2
-  resolution: "@types/scheduler@npm:0.16.2"
-  checksum: b6b4dcfeae6deba2e06a70941860fb1435730576d3689225a421280b7742318d1548b3d22c1f66ab68e414f346a9542f29240bc955b6332c5b11e561077583bc
   languageName: node
   linkType: hard
 
@@ -35399,7 +35381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-beautiful-dnd@npm:^13.1.1":
+"react-beautiful-dnd@npm:~13.1.1":
   version: 13.1.1
   resolution: "react-beautiful-dnd@npm:13.1.1"
   dependencies:
