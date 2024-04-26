@@ -1,4 +1,4 @@
-import type { IIncomingIntegration, Serialized } from '@rocket.chat/core-typings';
+import type { IIncomingIntegration, IntegrationScriptEngine, Serialized } from '@rocket.chat/core-typings';
 import { Button, ButtonGroup, Tabs, TabsItem } from '@rocket.chat/fuselage';
 import { useUniqueId } from '@rocket.chat/fuselage-hooks';
 import { useSetModal, useTranslation, useRouter, useRouteParameter } from '@rocket.chat/ui-contexts';
@@ -63,7 +63,19 @@ const EditIncomingWebhook = ({ webhookData }: { webhookData?: Serialized<IIncomi
 	}, [webhookData?._id, deleteIntegration, setModal, t]);
 
 	const handleSave = useCallback(
-		async (formValues) => {
+		async (formValues: {
+			enabled: boolean;
+			channel: string;
+			username: string;
+			name: string;
+			alias: string;
+			avatar: string;
+			emoji: string;
+			scriptEnabled: boolean;
+			scriptEngine: IntegrationScriptEngine;
+			overrideDestinationChannelEnabled: boolean;
+			script: string;
+		}) => {
 			if (webhookData?._id) {
 				return updateIntegration.mutate({ integrationId: webhookData?._id, type: INCOMING_TYPE, ...formValues });
 			}

@@ -10,6 +10,15 @@ import { Page, PageHeader, PageScrollableContentWithShadow, PageFooter } from '.
 import CannedResponseForm from './components/cannedResponseForm';
 import { useRemoveCannedResponse } from './useRemoveCannedResponse';
 
+type CannedResponseEditFields = {
+	_id: string;
+	shortcut: string;
+	text: string;
+	tags: string[];
+	scope: string;
+	departmentId: string;
+};
+
 type CannedResponseEditProps = {
 	cannedResponseData?: Serialized<IOmnichannelCannedResponse>;
 	departmentData?: Serialized<ILivechatDepartment>;
@@ -32,7 +41,7 @@ const CannedResponseEdit = ({ cannedResponseData }: CannedResponseEditProps) => 
 
 	const saveCannedResponse = useEndpoint('POST', '/v1/canned-responses');
 
-	const methods = useForm({ defaultValues: getInitialData(cannedResponseData) });
+	const methods = useForm<CannedResponseEditFields>({ defaultValues: getInitialData(cannedResponseData) });
 
 	const {
 		handleSubmit,
@@ -43,10 +52,10 @@ const CannedResponseEdit = ({ cannedResponseData }: CannedResponseEditProps) => 
 	const handleDelete = useRemoveCannedResponse();
 
 	const handleSave = useCallback(
-		async ({ departmentId, ...data }) => {
+		async ({ _id, departmentId, ...data }: CannedResponseEditFields) => {
 			try {
 				await saveCannedResponse({
-					_id: cannedResponseData?._id,
+					_id: cannedResponseData?._id ?? _id,
 					...data,
 					...(departmentId && { departmentId }),
 				});

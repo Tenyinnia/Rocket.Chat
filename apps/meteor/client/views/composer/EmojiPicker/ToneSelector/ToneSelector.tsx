@@ -1,3 +1,4 @@
+import type { OptionType } from '@rocket.chat/fuselage';
 import { IconButton, useCursor, PositionAnimated, Options } from '@rocket.chat/fuselage';
 import type { ReactElement } from 'react';
 import React, { useMemo, useRef, useCallback, useEffect } from 'react';
@@ -37,7 +38,7 @@ const ToneSelector = ({ tone, setTone }: { tone: number; setTone: (tone: number)
 	}, [show]);
 
 	const handleSelection = useCallback(
-		([selected]) => {
+		([selected]: OptionType) => {
 			setTone(selected);
 			reset();
 			hide();

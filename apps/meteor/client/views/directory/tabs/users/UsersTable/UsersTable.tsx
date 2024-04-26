@@ -85,7 +85,8 @@ const UsersTable = ({ workspace = 'local' }): ReactElement => {
 	const { data, isFetched, isLoading, isError, refetch } = useQuery(['getDirectoryData', query], () => getDirectoryData(query));
 
 	const handleClick = useCallback(
-		(username) => (e: React.KeyboardEvent | React.MouseEvent) => {
+		(username?: string) => (e: React.KeyboardEvent | React.MouseEvent) => {
+			if (!username) return;
 			if (e.type === 'click' || (e as React.KeyboardEvent).key === 'Enter') {
 				directRoute.push({ rid: username });
 			}

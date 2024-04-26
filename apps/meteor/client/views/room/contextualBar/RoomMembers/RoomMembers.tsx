@@ -29,7 +29,7 @@ type RoomMembersProps = {
 	loading: boolean;
 	text: string;
 	type: string;
-	setText: FormEventHandler<HTMLElement>;
+	setText: FormEventHandler<HTMLInputElement>;
 	setType: (type: 'online' | 'all') => void;
 	members: RoomMemberUser[];
 	total: number;

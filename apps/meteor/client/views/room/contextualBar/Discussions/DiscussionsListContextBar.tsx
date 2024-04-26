@@ -30,7 +30,7 @@ const DiscussionListContextBar = (): ReactElement | null => {
 	const { discussionsList, loadMoreItems } = useDiscussionsList(options, userId);
 	const { phase, error, items: discussions, itemCount: totalItemCount } = useRecordList<IDiscussionMessage>(discussionsList);
 
-	const handleTextChange = useCallback((e) => {
+	const handleTextChange = useCallback((e: unknown) => {
 		setText(e.currentTarget.value);
 	}, []);
 

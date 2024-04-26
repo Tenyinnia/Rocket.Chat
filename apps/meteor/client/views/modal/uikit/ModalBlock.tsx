@@ -83,10 +83,10 @@ const ModalBlock = ({ view, errors, onSubmit, onClose, onCancel }: ModalBlockPar
 	);
 
 	const handleKeyDown = useCallback(
-		(event) => {
+		(event: KeyboardEvent) => {
 			switch (event.keyCode) {
 				case KeyboardCode.get('ENTER'):
-					if (event?.target?.nodeName !== 'TEXTAREA') {
+					if ((event?.target as Node)?.nodeName !== 'TEXTAREA') {
 						return onSubmit(event);
 					}
 					return;
@@ -139,7 +139,7 @@ const ModalBlock = ({ view, errors, onSubmit, onClose, onCancel }: ModalBlockPar
 			return false;
 		};
 
-		const ignoreIfNotContains = (e: Event) => {
+		const ignoreIfNotContains = (e: KeyboardEvent) => {
 			if (e.target !== element) {
 				return;
 			}

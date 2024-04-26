@@ -18,7 +18,7 @@ const CustomScrollbars = forwardRef<HTMLElement, CustomScrollbarsProps>(function
 	ref,
 ) {
 	const refSetter = useCallback(
-		(scrollbarRef) => {
+		(scrollbarRef: Scrollbars) => {
 			if (ref && scrollbarRef) {
 				if (typeof ref === 'function') {
 					ref(scrollbarRef.view ?? null);

@@ -7,9 +7,21 @@ import { FormProvider, useForm } from 'react-hook-form';
 import GenericModal from '../../../../../../client/components/GenericModal';
 import CannedResponseForm from '../../components/cannedResponseForm';
 
+type CreateCannedResponseModalFields = {
+	_id: string;
+	shortcut: string;
+	text: string;
+	tags: {
+		label: string;
+		value: string;
+	}[];
+	scope: string;
+	departmentId: string;
+};
+
 const getInitialData = (
 	cannedResponseData: (IOmnichannelCannedResponse & { departmentName: ILivechatDepartment['name'] }) | undefined,
-) => ({
+): CreateCannedResponseModalFields => ({
 	_id: cannedResponseData?._id || '',
 	shortcut: cannedResponseData?.shortcut || '',
 	text: cannedResponseData?.text || '',
@@ -21,15 +33,13 @@ const getInitialData = (
 	departmentId: cannedResponseData?.departmentId || '',
 });
 
-const CreateCannedResponseModal = ({
-	cannedResponseData,
-	onClose,
-	reloadCannedList,
-}: {
+type CreateCannedResponseModalProps = {
 	cannedResponseData?: IOmnichannelCannedResponse & { departmentName: ILivechatDepartment['name'] };
 	onClose: () => void;
 	reloadCannedList: () => void;
-}) => {
+};
+
+const CreateCannedResponseModal = ({ cannedResponseData, onClose, reloadCannedList }: CreateCannedResponseModalProps) => {
 	const t = useTranslation();
 	const dispatchToastMessage = useToastMessageDispatch();
 
@@ -42,10 +52,10 @@ const CreateCannedResponseModal = ({
 	const saveCannedResponse = useEndpoint('POST', '/v1/canned-responses');
 
 	const handleCreate = useCallback(
-		async ({ departmentId, ...data }) => {
+		async ({ _id, departmentId, ...data }: CreateCannedResponseModalFields) => {
 			try {
 				await saveCannedResponse({
-					_id: cannedResponseData?._id,
+					_id: cannedResponseData?._id ?? _id,
 					...data,
 					...(departmentId && { departmentId }),
 				});

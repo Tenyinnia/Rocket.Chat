@@ -10,6 +10,11 @@ import { useForm, Controller } from 'react-hook-form';
 import { ContextualbarScrollableContent, ContextualbarFooter } from '../../../components/Contextualbar';
 import GenericModal from '../../../components/GenericModal';
 
+type CustomUserStatusFormFields = {
+	name: string;
+	statusType: string;
+};
+
 type CustomUserStatusFormProps = {
 	onClose: () => void;
 	onReload: () => void;
@@ -29,7 +34,7 @@ const CustomUserStatusForm = ({ onClose, onReload, status }: CustomUserStatusFor
 		control,
 		handleSubmit,
 		formState: { isDirty, errors },
-	} = useForm({
+	} = useForm<CustomUserStatusFormFields>({
 		defaultValues: { name: status?.name ?? '', statusType: status?.statusType ?? '' },
 	});
 
@@ -37,7 +42,7 @@ const CustomUserStatusForm = ({ onClose, onReload, status }: CustomUserStatusFor
 	const deleteStatus = useEndpoint('POST', '/v1/custom-user-status.delete');
 
 	const handleSave = useCallback(
-		async (data) => {
+		async (data: CustomUserStatusFormFields) => {
 			try {
 				await saveStatus({ _id, name, statusType, ...data });
 
@@ -73,11 +78,11 @@ const CustomUserStatusForm = ({ onClose, onReload, status }: CustomUserStatusFor
 			}
 		};
 
-		setModal(() => (
+		setModal(
 			<GenericModal variant='danger' onConfirm={handleDelete} onCancel={handleCancel} onClose={handleCancel} confirmText={t('Delete')}>
 				{t('Custom_User_Status_Delete_Warning')}
-			</GenericModal>
-		));
+			</GenericModal>,
+		);
 	}, [_id, route, deleteStatus, dispatchToastMessage, onReload, setModal, t]);
 
 	const presenceOptions: SelectOption[] = [
