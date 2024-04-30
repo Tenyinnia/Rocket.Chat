@@ -2,14 +2,62 @@ import { useDebouncedState, useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import { TooltipComponent } from '@rocket.chat/ui-client';
 import { TooltipContext } from '@rocket.chat/ui-contexts';
 import type { ReactNode } from 'react';
-import React, { useEffect, useMemo, useRef, memo, useCallback, useState } from 'react';
+import React, { useEffect, useMemo, useRef, memo, useCallback, useState, useContext } from 'react';
 
 import TooltipPortal from '../portals/TooltipPortal';
+
+type TooltipHandlerProps = {
+	title: string;
+	anchor: HTMLElement;
+};
+
+const TooltipHandler = ({ title, anchor }: TooltipHandlerProps) => {
+	const [state, setState] = useState(title);
+
+	const contextValue = useContext(TooltipContext);
+
+	useEffect(() => {
+		const close = (): void => contextValue.close();
+		// store the title in a data attribute
+		anchor.setAttribute('data-title', title);
+		// Removes the title attribute to prevent the browser's tooltip from showing
+		anchor.setAttribute('title', '');
+
+		anchor.addEventListener('mouseleave', close);
+
+		const observer = new MutationObserver(() => {
+			const title = anchor.getAttribute('title') ?? anchor.getAttribute('data-tooltip') ?? '';
+
+			if (title === '') {
+				return;
+			}
+
+			// store the title in a data attribute
+			anchor.setAttribute('data-title', title);
+			// Removes the title attribute to prevent the browser's tooltip from showing
+			anchor.setAttribute('title', '');
+
+			setState(title);
+		});
+
+		observer.observe(anchor, {
+			attributes: true,
+			attributeFilter: ['title', 'data-tooltip'],
+		});
+
+		return () => {
+			anchor.removeEventListener('mouseleave', close);
+			observer.disconnect();
+		};
+	}, [anchor, contextValue, title]);
+	return <>{state}</>;
+};
 
 type TooltipProviderProps = {
 	children: ReactNode;
 };
 
+// eslint-disable-next-line react/no-multi-comp
 const TooltipProvider = ({ children }: TooltipProviderProps) => {
 	const lastAnchor = useRef<HTMLElement>();
 	const hasHover = !useMediaQuery('(hover: none)');
@@ -76,46 +124,7 @@ const TooltipProvider = ({ children }: TooltipProviderProps) => {
 				return;
 			}
 
-			// eslint-disable-next-line react/no-multi-comp
-			const Handler = () => {
-				const [state, setState] = useState(title);
-				useEffect(() => {
-					const close = (): void => contextValue.close();
-					// store the title in a data attribute
-					anchor.setAttribute('data-title', title);
-					// Removes the title attribute to prevent the browser's tooltip from showing
-					anchor.setAttribute('title', '');
-
-					anchor.addEventListener('mouseleave', close);
-
-					const observer = new MutationObserver(() => {
-						const title = anchor.getAttribute('title') ?? anchor.getAttribute('data-tooltip') ?? '';
-
-						if (title === '') {
-							return;
-						}
-
-						// store the title in a data attribute
-						anchor.setAttribute('data-title', title);
-						// Removes the title attribute to prevent the browser's tooltip from showing
-						anchor.setAttribute('title', '');
-
-						setState(title);
-					});
-
-					observer.observe(anchor, {
-						attributes: true,
-						attributeFilter: ['title', 'data-tooltip'],
-					});
-
-					return () => {
-						anchor.removeEventListener('mouseleave', close);
-						observer.disconnect();
-					};
-				}, []);
-				return <>{state}</>;
-			};
-			contextValue.open(<Handler />, anchor);
+			contextValue.open(<TooltipHandler title={title} anchor={anchor} />, anchor);
 		};
 
 		const dismissOnClick = (): void => {
@@ -142,4 +151,4 @@ const TooltipProvider = ({ children }: TooltipProviderProps) => {
 	);
 };
 
-export default memo<typeof TooltipProvider>(TooltipProvider);
+export default memo(TooltipProvider);

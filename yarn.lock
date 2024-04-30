@@ -8742,7 +8742,7 @@ __metadata:
     "@babel/preset-typescript": ~7.22.15
     "@rocket.chat/apps-engine": ^1.42.1
     "@rocket.chat/eslint-config": "workspace:^"
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/fuselage-hooks": ^0.33.1
     "@rocket.chat/fuselage-polyfills": ~0.31.25
     "@rocket.chat/gazzodown": "workspace:^"
@@ -8802,9 +8802,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@rocket.chat/fuselage@npm:~0.53.4":
-  version: 0.53.4
-  resolution: "@rocket.chat/fuselage@npm:0.53.4"
+"@rocket.chat/fuselage@npm:~0.53.5":
+  version: 0.53.5
+  resolution: "@rocket.chat/fuselage@npm:0.53.5"
   dependencies:
     "@rocket.chat/css-in-js": ^0.31.25
     "@rocket.chat/css-supports": ^0.31.25
@@ -8822,7 +8822,7 @@ __metadata:
     react: ^17.0.2
     react-dom: ^17.0.2
     react-virtuoso: 1.2.4
-  checksum: 3a926f6f29f8111c23d423d056f51f13679f329cb58b418a9b2999ceac54897232f6078d656e3c7858d52dbe5fa55137267397feaa24b4271cf10e1e955891b6
+  checksum: 078107a5f2eb033ec5a3574e95b47182d8d2fa24e17e238f3327a40bb1bb641a6b850c0c6695d210698a1e27d70da8b25ecf7566176bcaa75b4b4708dce30d4c
   languageName: node
   linkType: hard
 
@@ -8833,7 +8833,7 @@ __metadata:
     "@babel/core": ~7.22.20
     "@rocket.chat/core-typings": "workspace:^"
     "@rocket.chat/css-in-js": ~0.31.25
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/fuselage-tokens": ^0.33.1
     "@rocket.chat/message-parser": "workspace:^"
     "@rocket.chat/styled": ~0.31.25
@@ -9044,7 +9044,7 @@ __metadata:
     preact-router: ^3.2.1
     query-string: ^7.1.3
     react-dom: ~18.2.0
-    react-hook-form: ~7.45.4
+    react-hook-form: ~7.51.3
     react-i18next: ~13.2.2
     rimraf: ^3.0.2
     sass: ~1.62.1
@@ -9193,7 +9193,7 @@ __metadata:
     "@rocket.chat/favicon": "workspace:^"
     "@rocket.chat/forked-matrix-appservice-bridge": ^4.0.2
     "@rocket.chat/forked-matrix-bot-sdk": ^0.6.0-beta.3
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/fuselage-hooks": ^0.33.1
     "@rocket.chat/fuselage-polyfills": ~0.31.25
     "@rocket.chat/fuselage-toastbar": ^0.31.26
@@ -9487,7 +9487,7 @@ __metadata:
     react-docgen-typescript-plugin: ^1.0.5
     react-dom: ~18.2.0
     react-error-boundary: ^3.1.4
-    react-hook-form: ~7.45.4
+    react-hook-form: ~7.51.3
     react-i18next: ~13.2.2
     react-keyed-flatten-children: ^1.3.0
     react-virtuoso: ~4.7.10
@@ -10089,7 +10089,7 @@ __metadata:
   resolution: "@rocket.chat/ui-avatar@workspace:packages/ui-avatar"
   dependencies:
     "@babel/core": ~7.22.20
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/ui-contexts": "workspace:^"
     "@types/babel__core": ~7.20.3
     "@types/react": ~18.2.79
@@ -10115,7 +10115,7 @@ __metadata:
     "@babel/core": ~7.22.20
     "@react-aria/toolbar": ^3.0.0-beta.1
     "@rocket.chat/css-in-js": ~0.31.25
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/fuselage-hooks": ^0.33.1
     "@rocket.chat/icons": ^0.34.0
     "@rocket.chat/mock-providers": "workspace:^"
@@ -10147,7 +10147,7 @@ __metadata:
     jest: ~29.6.4
     react: ~18.2.0
     react-dom: ~18.2.0
-    react-hook-form: ~7.45.4
+    react-hook-form: ~7.51.3
     ts-jest: ~29.1.1
     typescript: ~5.3.3
   peerDependencies:
@@ -10168,7 +10168,7 @@ __metadata:
     "@babel/core": ~7.22.20
     "@react-aria/toolbar": ^3.0.0-beta.1
     "@rocket.chat/eslint-config": "workspace:^"
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/icons": ^0.34.0
     "@storybook/addon-actions": ~6.5.16
     "@storybook/addon-docs": ~6.5.16
@@ -10264,7 +10264,7 @@ __metadata:
   resolution: "@rocket.chat/ui-theming@workspace:ee/packages/ui-theming"
   dependencies:
     "@rocket.chat/css-in-js": ~0.31.25
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/fuselage-hooks": ^0.33.1
     "@rocket.chat/icons": ^0.34.0
     "@rocket.chat/ui-contexts": "workspace:~"
@@ -10307,7 +10307,7 @@ __metadata:
     "@rocket.chat/css-in-js": ~0.31.25
     "@rocket.chat/emitter": ~0.31.25
     "@rocket.chat/eslint-config": "workspace:^"
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/fuselage-hooks": ^0.33.1
     "@rocket.chat/icons": ^0.34.0
     "@rocket.chat/styled": ~0.31.25
@@ -10356,7 +10356,7 @@ __metadata:
     "@codemirror/tooltip": ^0.19.16
     "@lezer/highlight": ^1.1.6
     "@rocket.chat/css-in-js": ~0.31.25
-    "@rocket.chat/fuselage": ~0.53.4
+    "@rocket.chat/fuselage": ~0.53.5
     "@rocket.chat/fuselage-hooks": ^0.33.1
     "@rocket.chat/fuselage-polyfills": ~0.31.25
     "@rocket.chat/fuselage-toastbar": ^0.31.26
@@ -10423,7 +10423,7 @@ __metadata:
     eslint: ~8.45.0
     jest: ~29.6.4
     react: ~18.2.0
-    react-hook-form: ~7.45.4
+    react-hook-form: ~7.51.3
     react-i18next: ~13.2.2
     storybook-dark-mode: ~3.0.1
     ts-jest: ~29.1.1
@@ -35506,12 +35506,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:~7.45.4":
-  version: 7.45.4
-  resolution: "react-hook-form@npm:7.45.4"
+"react-hook-form@npm:~7.51.3":
+  version: 7.51.3
+  resolution: "react-hook-form@npm:7.51.3"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: 1d84c78dadf561bc9e360272c5c856c724426162e13a74929c0517c3eb8004a7f057561fff3bfd4c1121b36d6cf1437399df1dbfd01d0817b9f922503f407d8f
+  checksum: 4ac71033b66ae0b7b9d75a1bc2053a6747fb37f68c6895ee85a72cabb890168d82990c8ca7bddd271e80fdbf58f471d14d6a0e0714400d017590d4f56b3d241f
   languageName: node
   linkType: hard
 

@@ -10,6 +10,7 @@ import { Page, PageHeader, PageScrollableContentWithShadow, PageFooter } from '.
 import { useCreateIntegration } from '../hooks/useCreateIntegration';
 import { useDeleteIntegration } from '../hooks/useDeleteIntegration';
 import { useUpdateIntegration } from '../hooks/useUpdateIntegration';
+import type { IncomingWebhookFormFields } from './IncomingWebhookForm';
 import IncomingWebhookForm from './IncomingWebhookForm';
 
 const getInitialValue = (webhookData: Serialized<IIncomingIntegration> | undefined) => ({
@@ -38,13 +39,13 @@ const EditIncomingWebhook = ({ webhookData }: { webhookData?: Serialized<IIncomi
 	const updateIntegration = useUpdateIntegration(INCOMING_TYPE);
 	const createIntegration = useCreateIntegration(INCOMING_TYPE);
 
-	const methods = useForm({ mode: 'onBlur', values: getInitialValue(webhookData) });
+	const form = useForm<IncomingWebhookFormFields>({ mode: 'onBlur', values: getInitialValue(webhookData) });
 
 	const {
 		reset,
 		handleSubmit,
 		formState: { isDirty },
-	} = methods;
+	} = form;
 
 	const handleDeleteIntegration = useCallback(() => {
 		const onDelete = async () => {
@@ -109,7 +110,7 @@ const EditIncomingWebhook = ({ webhookData }: { webhookData?: Serialized<IIncomi
 				</Tabs>
 			)}
 			<PageScrollableContentWithShadow id={formId} is='form' onSubmit={handleSubmit(handleSave)}>
-				<FormProvider {...methods}>
+				<FormProvider {...form}>
 					<IncomingWebhookForm webhookData={webhookData} />
 				</FormProvider>
 			</PageScrollableContentWithShadow>

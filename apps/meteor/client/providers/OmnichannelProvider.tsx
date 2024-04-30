@@ -215,4 +215,4 @@ const OmnichannelProvider = ({ children }: OmnichannelProviderProps) => {
 	return <OmnichannelContext.Provider children={children} value={contextValue} />;
 };
 
-export default memo<typeof OmnichannelProvider>(OmnichannelProvider);
+export default memo(OmnichannelProvider);

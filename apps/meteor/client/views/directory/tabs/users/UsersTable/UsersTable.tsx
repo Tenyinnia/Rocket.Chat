@@ -1,4 +1,4 @@
-import type { IUser, Serialized } from '@rocket.chat/core-typings';
+import type { IUser, IUserEmail, Serialized } from '@rocket.chat/core-typings';
 import { Pagination, States, StatesIcon, StatesTitle, StatesActions, StatesAction } from '@rocket.chat/fuselage';
 import { useDebouncedValue, useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import { usePermission, useRoute, useTranslation, useEndpoint } from '@rocket.chat/ui-contexts';
@@ -82,7 +82,31 @@ const UsersTable = ({ workspace = 'local' }): ReactElement => {
 	const query = useDirectoryQuery({ text: debouncedText, current, itemsPerPage }, [sortBy, sortDirection], 'users', workspace);
 	const getDirectoryData = useEndpoint('GET', '/v1/directory');
 
-	const { data, isFetched, isLoading, isError, refetch } = useQuery(['getDirectoryData', query], () => getDirectoryData(query));
+	const { data, isFetched, isLoading, isError, refetch } = useQuery(
+		['getDirectoryData', query],
+		() =>
+			getDirectoryData(query) as Promise<
+				Serialized<{
+					count: number;
+					offset: number;
+					total: number;
+					result: (
+						| (IUser & { domain?: unknown })
+						| {
+								_id?: string;
+								username?: string;
+								name?: string;
+								bio?: string;
+								nickname?: string;
+								emails?: IUserEmail[];
+								federation?: unknown;
+								isRemote: true;
+								domain?: unknown;
+						  }
+					)[];
+				}>
+			>,
+	);
 
 	const handleClick = useCallback(
 		(username?: string) => (e: React.KeyboardEvent | React.MouseEvent) => {
@@ -110,12 +134,12 @@ const UsersTable = ({ workspace = 'local' }): ReactElement => {
 					<GenericTable>
 						<GenericTableHeader>{headers}</GenericTableHeader>
 						<GenericTableBody>
-							{data?.result.map((user) => (
+							{data.result.map((user) => (
 								<UsersTableRow
 									key={user._id}
 									onClick={handleClick}
 									mediaQuery={mediaQuery}
-									user={user as unknown as Serialized<IUser>}
+									user={user}
 									federation={federation}
 									canViewFullOtherUserInfo={canViewFullOtherUserInfo}
 								/>

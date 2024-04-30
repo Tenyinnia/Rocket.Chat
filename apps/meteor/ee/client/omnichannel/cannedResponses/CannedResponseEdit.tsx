@@ -7,28 +7,20 @@ import React, { memo, useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Page, PageHeader, PageScrollableContentWithShadow, PageFooter } from '../../../../client/components/Page';
-import CannedResponseForm from './components/cannedResponseForm';
+import type { CannedResponseFormFields } from './components/CannedResponseForm';
+import CannedResponseForm from './components/CannedResponseForm';
 import { useRemoveCannedResponse } from './useRemoveCannedResponse';
-
-type CannedResponseEditFields = {
-	_id: string;
-	shortcut: string;
-	text: string;
-	tags: string[];
-	scope: string;
-	departmentId: string;
-};
 
 type CannedResponseEditProps = {
 	cannedResponseData?: Serialized<IOmnichannelCannedResponse>;
 	departmentData?: Serialized<ILivechatDepartment>;
 };
 
-const getInitialData = (cannedResponseData: Serialized<IOmnichannelCannedResponse> | undefined) => ({
+const getInitialData = (cannedResponseData: Serialized<IOmnichannelCannedResponse> | undefined): CannedResponseFormFields => ({
 	_id: cannedResponseData?._id || '',
 	shortcut: cannedResponseData?.shortcut || '',
 	text: cannedResponseData?.text || '',
-	tags: cannedResponseData?.tags || [],
+	tags: cannedResponseData?.tags ?? [],
 	scope: cannedResponseData?.scope || 'user',
 	departmentId: cannedResponseData?.departmentId || '',
 });
@@ -41,18 +33,18 @@ const CannedResponseEdit = ({ cannedResponseData }: CannedResponseEditProps) => 
 
 	const saveCannedResponse = useEndpoint('POST', '/v1/canned-responses');
 
-	const methods = useForm<CannedResponseEditFields>({ defaultValues: getInitialData(cannedResponseData) });
+	const form = useForm<CannedResponseFormFields>({ defaultValues: getInitialData(cannedResponseData) });
 
 	const {
 		handleSubmit,
 		reset,
 		formState: { isDirty },
-	} = methods;
+	} = form;
 
 	const handleDelete = useRemoveCannedResponse();
 
 	const handleSave = useCallback(
-		async ({ _id, departmentId, ...data }: CannedResponseEditFields) => {
+		async ({ _id, departmentId, ...data }: CannedResponseFormFields) => {
 			try {
 				await saveCannedResponse({
 					_id: cannedResponseData?._id ?? _id,
@@ -88,7 +80,7 @@ const CannedResponseEdit = ({ cannedResponseData }: CannedResponseEditProps) => 
 				)}
 			</PageHeader>
 			<PageScrollableContentWithShadow>
-				<FormProvider {...methods}>
+				<FormProvider {...form}>
 					<Box id={formId} onSubmit={handleSubmit(handleSave)} w='full' alignSelf='center' maxWidth='x600' is='form' autoComplete='off'>
 						<CannedResponseForm />
 					</Box>

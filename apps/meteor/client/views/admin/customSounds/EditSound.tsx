@@ -55,10 +55,10 @@ function EditSound({ close, onChange, data, ...props }: EditSoundProps): ReactEl
 		[],
 	);
 
-	const hasUnsavedChanges = useMemo(() => previousName !== name || previousSound !== sound, [name, previousName, previousSound, sound]);
+	const hasUnsavedChanges = previousName !== name || previousSound !== sound;
 
 	const saveAction = useCallback(
-		async (sound: File) => {
+		async (sound) => {
 			const soundData = createSoundData(sound, name, { previousName, previousSound, _id, extension: sound.extension });
 			const validation = validate(soundData, sound);
 			if (validation.length === 0) {

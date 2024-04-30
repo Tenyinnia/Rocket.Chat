@@ -35,16 +35,24 @@ const CustomUserStatusForm = ({ onClose, onReload, status }: CustomUserStatusFor
 		handleSubmit,
 		formState: { isDirty, errors },
 	} = useForm<CustomUserStatusFormFields>({
-		defaultValues: { name: status?.name ?? '', statusType: status?.statusType ?? '' },
+		defaultValues: { name: name ?? '', statusType: statusType ?? '' },
 	});
 
-	const saveStatus = useEndpoint('POST', _id ? '/v1/custom-user-status.update' : '/v1/custom-user-status.create');
+	const createStatus = useEndpoint('POST', '/v1/custom-user-status.create');
+	const updateStatus = useEndpoint('POST', '/v1/custom-user-status.update');
 	const deleteStatus = useEndpoint('POST', '/v1/custom-user-status.delete');
 
 	const handleSave = useCallback(
 		async (data: CustomUserStatusFormFields) => {
 			try {
-				await saveStatus({ _id, name, statusType, ...data });
+				if (_id) {
+					await updateStatus({
+						id: _id,
+						...data,
+					});
+				} else {
+					await createStatus(data);
+				}
 
 				dispatchToastMessage({
 					type: 'success',
@@ -57,7 +65,7 @@ const CustomUserStatusForm = ({ onClose, onReload, status }: CustomUserStatusFor
 				dispatchToastMessage({ type: 'error', message: error });
 			}
 		},
-		[saveStatus, _id, name, statusType, route, dispatchToastMessage, t, onReload],
+		[_id, dispatchToastMessage, t, onReload, route, updateStatus, createStatus],
 	);
 
 	const handleDeleteStatus = useCallback(() => {

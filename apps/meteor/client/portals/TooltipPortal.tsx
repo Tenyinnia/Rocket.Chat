@@ -15,4 +15,4 @@ const TooltipPortal = ({ children }: TooltipPortalProps) => {
 	return <>{createPortal(children, tooltipRoot)}</>;
 };
 
-export default memo<typeof TooltipPortal>(TooltipPortal);
+export default memo(TooltipPortal);

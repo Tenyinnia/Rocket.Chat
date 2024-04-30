@@ -5,30 +5,16 @@ import React, { memo, useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import GenericModal from '../../../../../../client/components/GenericModal';
-import CannedResponseForm from '../../components/cannedResponseForm';
-
-type CreateCannedResponseModalFields = {
-	_id: string;
-	shortcut: string;
-	text: string;
-	tags: {
-		label: string;
-		value: string;
-	}[];
-	scope: string;
-	departmentId: string;
-};
+import type { CannedResponseFormFields } from '../../components/CannedResponseForm';
+import CannedResponseForm from '../../components/CannedResponseForm';
 
 const getInitialData = (
 	cannedResponseData: (IOmnichannelCannedResponse & { departmentName: ILivechatDepartment['name'] }) | undefined,
-): CreateCannedResponseModalFields => ({
+): CannedResponseFormFields => ({
 	_id: cannedResponseData?._id || '',
 	shortcut: cannedResponseData?.shortcut || '',
 	text: cannedResponseData?.text || '',
-	tags:
-		cannedResponseData?.tags && Array.isArray(cannedResponseData.tags)
-			? cannedResponseData.tags.map((tag: string) => ({ label: tag, value: tag }))
-			: [],
+	tags: cannedResponseData?.tags ?? [],
 	scope: cannedResponseData?.scope || 'user',
 	departmentId: cannedResponseData?.departmentId || '',
 });
@@ -43,7 +29,7 @@ const CreateCannedResponseModal = ({ cannedResponseData, onClose, reloadCannedLi
 	const t = useTranslation();
 	const dispatchToastMessage = useToastMessageDispatch();
 
-	const methods = useForm({ defaultValues: getInitialData(cannedResponseData) });
+	const methods = useForm<CannedResponseFormFields>({ defaultValues: getInitialData(cannedResponseData) });
 	const {
 		handleSubmit,
 		formState: { isDirty },
@@ -52,7 +38,7 @@ const CreateCannedResponseModal = ({ cannedResponseData, onClose, reloadCannedLi
 	const saveCannedResponse = useEndpoint('POST', '/v1/canned-responses');
 
 	const handleCreate = useCallback(
-		async ({ _id, departmentId, ...data }: CreateCannedResponseModalFields) => {
+		async ({ _id, departmentId, ...data }: CannedResponseFormFields) => {
 			try {
 				await saveCannedResponse({
 					_id: cannedResponseData?._id ?? _id,

@@ -39,7 +39,7 @@ const ToneSelector = ({ tone, setTone }: { tone: number; setTone: (tone: number)
 
 	const handleSelection = useCallback(
 		([selected]: OptionType) => {
-			setTone(selected);
+			setTone(selected as number);
 			reset();
 			hide();
 		},

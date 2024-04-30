@@ -17,4 +17,4 @@ const SidebarPortal = ({ children }: SidebarPortalProps) => {
 	return <>{createPortal(<Box className='rcx-sidebar flex-nav'>{children}</Box>, sidebarRoot)}</>;
 };
 
-export default memo<typeof SidebarPortal>(SidebarPortal);
+export default memo(SidebarPortal);
