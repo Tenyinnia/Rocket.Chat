@@ -99,7 +99,12 @@ const TeamsTable = () => {
 						<GenericTableHeader>{headers}</GenericTableHeader>
 						<GenericTableBody>
 							{data.result.map((team) => (
-								<TeamsTableRow key={team._id} team={team} onClick={onClick} mediaQuery={mediaQuery} />
+								<TeamsTableRow
+									key={team._id}
+									team={team as Serialized<IRoom & { roomsCount?: number }>}
+									onClick={onClick}
+									mediaQuery={mediaQuery}
+								/>
 							))}
 						</GenericTableBody>
 					</GenericTable>

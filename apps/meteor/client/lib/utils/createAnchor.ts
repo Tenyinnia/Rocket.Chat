@@ -13,7 +13,7 @@ export function createAnchor(id: string, tag: keyof HTMLElementTagNameMap = 'div
 	document.body.appendChild(element);
 
 	registerAnchor(element, () => {
-		element.remove();
+		document.body.removeChild(element);
 	});
 	return element;
 }

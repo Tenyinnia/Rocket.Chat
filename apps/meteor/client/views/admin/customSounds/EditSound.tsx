@@ -58,7 +58,8 @@ function EditSound({ close, onChange, data, ...props }: EditSoundProps): ReactEl
 	const hasUnsavedChanges = previousName !== name || previousSound !== sound;
 
 	const saveAction = useCallback(
-		async (sound) => {
+		// FIXME
+		async (sound: any) => {
 			const soundData = createSoundData(sound, name, { previousName, previousSound, _id, extension: sound.extension });
 			const validation = validate(soundData, sound);
 			if (validation.length === 0) {
@@ -127,7 +128,7 @@ function EditSound({ close, onChange, data, ...props }: EditSoundProps): ReactEl
 		);
 	}, [_id, close, deleteCustomSound, dispatchToastMessage, onChange, setModal, t]);
 
-	const [clickUpload] = useSingleFileInput(handleChangeFile, 'audio/mp3');
+	const [clickUpload] = useSingleFileInput(handleChangeFile as any, 'audio/mp3'); // FIXME
 
 	return (
 		<>

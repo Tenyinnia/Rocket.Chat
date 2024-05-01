@@ -139,7 +139,22 @@ const UsersTable = ({ workspace = 'local' }): ReactElement => {
 									key={user._id}
 									onClick={handleClick}
 									mediaQuery={mediaQuery}
-									user={user}
+									user={
+										user as Serialized<
+											| (IUser & { domain?: unknown })
+											| {
+													_id?: string;
+													username?: string;
+													name?: string;
+													bio?: string;
+													nickname?: string;
+													emails?: IUserEmail[];
+													federation?: unknown;
+													isRemote: true;
+													domain?: unknown;
+											  }
+										>
+									}
 									federation={federation}
 									canViewFullOtherUserInfo={canViewFullOtherUserInfo}
 								/>

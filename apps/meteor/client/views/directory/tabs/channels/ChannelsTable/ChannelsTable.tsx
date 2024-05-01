@@ -83,18 +83,7 @@ const ChannelsTable = () => {
 
 	const getDirectoryData = useEndpoint('GET', '/v1/directory');
 	const query = useDirectoryQuery({ text: debouncedText, current, itemsPerPage }, [sortBy, sortDirection], 'channels');
-	const { data, isFetched, isLoading, isError, refetch } = useQuery(
-		['getDirectoryData', query],
-		() =>
-			getDirectoryData(query) as Promise<
-				Serialized<{
-					count: number;
-					offset: number;
-					total: number;
-					result: (IRoom & { belongsTo: string })[];
-				}>
-			>,
-	);
+	const { data, isFetched, isLoading, isError, refetch } = useQuery(['getDirectoryData', query], () => getDirectoryData(query));
 
 	const onClick = useMemo(
 		() => (name: IRoom['name'], type: IRoom['t']) => (e: React.KeyboardEvent | React.MouseEvent) => {
@@ -122,7 +111,12 @@ const ChannelsTable = () => {
 						<GenericTableHeader>{headers}</GenericTableHeader>
 						<GenericTableBody>
 							{data.result.map((room) => (
-								<ChannelsTableRow key={room._id} room={room} onClick={onClick} mediaQuery={mediaQuery} />
+								<ChannelsTableRow
+									key={room._id}
+									room={room as Serialized<IRoom & { belongsTo: string }>}
+									onClick={onClick}
+									mediaQuery={mediaQuery}
+								/>
 							))}
 						</GenericTableBody>
 					</GenericTable>

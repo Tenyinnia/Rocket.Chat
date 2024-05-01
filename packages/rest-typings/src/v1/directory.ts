@@ -39,7 +39,7 @@ export type DirectoryEndpoint = {
 	'/v1/directory': {
 		GET: (params: DirectoryProps) => PaginatedResult<{
 			total: number;
-			results:
+			result:
 				| (IRoom & { belongsTo: string })[]
 				| (IRoom & { roomsCount?: number })[]
 				| (
