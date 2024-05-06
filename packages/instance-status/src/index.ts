@@ -11,6 +11,14 @@ const defaultPingInterval = parseInt(String(process.env.MULTIPLE_INSTANCES_PING_
 // if not set via env var ensures at least 3 ticks before expiring (multiple of 60s)
 const indexExpire = (parseInt(String(process.env.MULTIPLE_INSTANCES_EXPIRE)) || Math.ceil((defaultPingInterval * 3) / 60)) * 60;
 
+const dbWatchersDisabled = ['yes', 'true'].includes(String(process.env.DISABLE_DB_WATCHERS).toLowerCase());
+
+function broadcastEvent(clientAction: 'inserted' | 'updated' | 'removed', id: string, data?: any, diff?: any) {
+	if (dbWatchersDisabled) {
+		events.emit('watch.instanceStatus', { clientAction, id, data, diff });
+	}
+}
+
 let createIndexes = async () => {
 	await InstanceStatusModel.col
 		.indexes()
@@ -83,11 +91,7 @@ async function registerInstance(name: string, extraInformation: Record<string, u
 
 		events.emit('registerInstance', instanceStatus, instance);
 
-		events.emit('watch.instanceStatus', {
-			clientAction: result.upsertedId ? 'inserted' : 'updated',
-			id: ID,
-			data: instanceStatus,
-		});
+		broadcastEvent(result.upsertedId ? 'inserted' : 'updated', ID, instanceStatus);
 
 		process.on('exit', onExit);
 
@@ -105,10 +109,7 @@ async function unregisterInstance() {
 		events.emit('unregisterInstance', ID);
 
 		if (result.deletedCount) {
-			events.emit('watch.instanceStatus', {
-				clientAction: 'removed',
-				id: ID,
-			});
+			broadcastEvent('removed', ID);
 		}
 
 		process.removeListener('exit', onExit);
@@ -173,13 +174,7 @@ async function updateConnections(conns: number) {
 	);
 
 	if (result.modifiedCount) {
-		events.emit('watch.instanceStatus', {
-			clientAction: 'updated',
-			id: ID,
-			diff: {
-				'extraInformation.conns': conns,
-			},
-		});
+		broadcastEvent('updated', ID, undefined, { 'extraInformation.conns': conns });
 	}
 }
 
